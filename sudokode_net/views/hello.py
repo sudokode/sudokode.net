@@ -1,6 +1,6 @@
 from flask import request, make_response, url_for, redirect, abort, render_template as temp
 
-from sudokode_net import app
+from sudokode_net import app, hello_feed
 
 def hello_temp(name=None, save=False, erase=False):
     return make_response(temp('hello.html', title="Hello", name=name, save=save, erase=erase))

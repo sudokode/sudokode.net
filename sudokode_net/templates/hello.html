@@ -1,4 +1,5 @@
 {% include 'header.html' %}
+    <script type="text/javascript" src="/js/hello.js"></script>
     <style type="text/css">
       body {
         margin: 2em;
@@ -26,4 +27,9 @@
       <button type="submit">Go!</button>
     </form>
     {% endif %}
+    <h1>These people said hello too!</h1>
+    <div id="hello_feed">
+      <ul id="hello_list">
+      </ul>
+    </div>
 {% include 'footer.html' %}
