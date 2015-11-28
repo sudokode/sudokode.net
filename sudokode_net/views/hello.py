@@ -23,7 +23,7 @@ def hello_index():
 
     return hello_temp()
 
-@app.route('/hello/<name>/')
+@app.route('/hello/<path:name>/')
 def hello(name):
     if not name:
         abort(404)
