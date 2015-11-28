@@ -1,0 +1,29 @@
+{% include 'header.html' %}
+    <style type="text/css">
+      body {
+        margin: 2em;
+      }
+    </style>
+    {% if name %}
+    <h1>Hello, {{ name }}!</h1>
+      {% if save %}
+        <p>Thanks for saving your name!</p>
+        <p><a href="/hello/{{ name }}/">You get a URL!</a></p>
+        <p><a href="/hello/{{ name }}/erase">Change name!</a></p>
+      {% else %}
+      <p><a href="/hello/{{ name }}/save">Save name!</a></p>
+      <p><a href="/hello/">Change name!</a></p>
+      {% endif %}
+    {% else %}
+      <h1>Hello, anon!</h1>
+      {% if erase %}
+        <p>Sorry to see you go!</p>
+      {% endif %}
+      <form id="hello" name="hello" action="/hello/" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="name..." />
+      <input type="checkbox" id="save" name="save">Save</input>
+      <button type="submit">Go!</button>
+    </form>
+    {% endif %}
+{% include 'footer.html' %}
