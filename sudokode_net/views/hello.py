@@ -19,7 +19,7 @@ def hello_index():
                 return redirect(url_for('hello', name=name))
         return hello_temp()
     elif request.cookies.get('name'):
-        return hello_temp(request.cookies.get('name'), save=True)
+        return redirect(url_for('hello', name=request.cookies.get('name')))
 
     return hello_temp()
 
