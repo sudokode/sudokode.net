@@ -1,5 +1,3 @@
-from flask import render_template as temp
-
 from sudokode_net import app
 
 @app.route('/phpMyAdmin/scripts/setup.php')
