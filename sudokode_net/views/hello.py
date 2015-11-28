@@ -35,7 +35,7 @@ def hello(name):
 
     return hello_temp(name)
 
-@app.route('/hello/<name>/save')
+@app.route('/hello/<path:name>/save')
 def hello_save(name):
     if not name:
         abort(403)
@@ -46,7 +46,7 @@ def hello_save(name):
 
     return response
 
-@app.route('/hello/<name>/erase')
+@app.route('/hello/<path:name>/erase')
 def hello_erase(name):
     if not name:
         abort(404)
