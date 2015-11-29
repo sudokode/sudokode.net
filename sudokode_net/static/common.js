@@ -1,3 +1,3 @@
 $(document).ready(function() {
-  alert("sudokode");
+  console.log("hello!");
 });
