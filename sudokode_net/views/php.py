@@ -1,3 +1,5 @@
+from flask import redirect
+
 from sudokode_net import app
 
 @app.route('/phpMyAdmin/scripts/setup.php')
@@ -5,5 +7,5 @@ from sudokode_net import app
 @app.route('/pma/scripts/setup.php')
 def php():
     print("PHP lulz")
-    return 'PHP? Really? The source is <a href="https://github.com/sudokode/sudokode.net">here</a>.'
+    return redirect("https://github.com/sudokode/sudokode.net")
 
