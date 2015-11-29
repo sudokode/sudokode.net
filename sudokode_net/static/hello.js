@@ -1,3 +1,3 @@
 $(document).ready(function() {
-  console.log("common blah blah");
+  console.log("hello!");
 });
