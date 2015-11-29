@@ -8,7 +8,6 @@ hello_feed = {
         'erased': dict()
 }
 
-import sudokode_net.views.scripts
 import sudokode_net.views.robots
 import sudokode_net.views.php
 import sudokode_net.views.chan4
