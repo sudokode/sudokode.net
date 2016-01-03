@@ -35,10 +35,10 @@ def hello(name):
 
     print("Hello from {}!".format(name))
 
-    update_feed(name)
-
     if request.cookies.get('name'):
         return hello_temp(request.cookies.get('name'), save=True)
+    else:
+        update_feed(name)
 
     return hello_temp(name)
 
@@ -47,9 +47,10 @@ def hello_save(name):
     if not name:
         abort(403)
 
-    update_feed(name)
-
     response = hello_temp(name, save=True)
+
+    if not request.cookies.get('name'):
+        update_feed(name)
     response.set_cookie('name', name)
 
     print("{} saved their name!".format(name))
