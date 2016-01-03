@@ -14,6 +14,8 @@
     </div>
     <script type="text/javascript">
       $(document).ready(function() {
+        getLastCommit();
+
         function getLastCommit() {
           $.ajax({
             url: 'https://api.github.com/repos/sudokode/sudokode.net/commits',
@@ -32,7 +34,7 @@
           });
         }
 
-        setInterval(getLastCommit(), 60000);
+        setInterval(getLastCommit, 10000);
         //test commit info grabber
       });
     </script>
