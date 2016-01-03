@@ -7,6 +7,33 @@
       {% endif %}
       <p><a href="/4chan/">4chan</a>
       <p style="font-size: .5em;"><a target="_blank" title="GitHub" href="https://github.com/sudokode/sudokode.net">&lt;src&gt;</a></p>
+      <div style="font-size: .5em; text-align: center;">
+        © 2016 sudokode<br /><br />
+        Last commit: <a id="last_commit"></a>
+      </div>
     </div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        function getLastCommit() {
+          $.ajax({
+            url: 'https://api.github.com/repos/sudokode/sudokode.net/commits',
+            dataType: 'json'
+          })
+          .done(function(json) {
+            var lastCommit = json[0].sha.substr(0, 7);
+            var commitMsg = json[0].commit.message;
+            var commitDate = json[0].commit.author.date;
+            $("#last_commit").text(
+                lastCommit
+                + ' ('
+                + commitMsg
+                + ')'
+            ).attr('title', 'Date: ' + commitDate);
+          });
+        }
+
+        setInterval(getLastCommit(), 60000);
+      });
+    </script>
   </body>
 </html>
