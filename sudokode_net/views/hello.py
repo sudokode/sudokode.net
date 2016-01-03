@@ -5,6 +5,11 @@ from sudokode_net import app, hello_feed
 def hello_temp(name=None, save=False, erase=False):
     return make_response(temp('hello.html', title="Hello", name=name, save=save, erase=erase, hello_feed=hello_feed))
 
+def update_feed(name):
+    if len(hello_feed) == 10:
+        hello_feed.pop()
+    hello_feed.insert(0, name)
+
 @app.route('/hello/', methods=['POST', 'GET'])
 def hello_index():
     if request.method == 'POST':
@@ -30,9 +35,7 @@ def hello(name):
 
     print("Hello from {}!".format(name))
 
-    if len(hello_feed) == 10:
-        hello_feed.pop()
-    hello_feed.insert(0, name)
+    update_feed(name)
 
     if request.cookies.get('name'):
         return hello_temp(request.cookies.get('name'), save=True)
@@ -43,6 +46,8 @@ def hello(name):
 def hello_save(name):
     if not name:
         abort(403)
+
+    update_feed(name)
 
     response = hello_temp(name, save=True)
     response.set_cookie('name', name)
