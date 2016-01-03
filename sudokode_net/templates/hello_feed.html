@@ -8,3 +8,24 @@
         {% endif %}
       </ul>
     </div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        setInterval(function() {
+          $.ajax({
+            url: '/hello/feed/',
+            dataType: 'json'
+          })
+          .done(function(json) {
+            console.log(json);
+            $("#hello_list").empty();
+            $.each(json.data, function(index, value) {
+              $("#hello_list").append(
+                  '<li class="hello_item">'
+                  + value
+                  + '</li>'
+              );
+            });
+          });
+        }, 9000);
+      });
+    </script>

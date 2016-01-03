@@ -1,4 +1,4 @@
-from flask import request, make_response, url_for, redirect, abort, render_template as temp
+from flask import request, make_response, url_for, redirect, abort, jsonify, render_template as temp
 
 from sudokode_net import app, hello_feed
 
@@ -40,12 +40,12 @@ def hello_save(name):
     if not name:
         abort(403)
 
-    response = hello_temp(name, save=True)
-    response.set_cookie('name', name)
-
     if len(hello_feed) == 10:
         hello_feed.pop()
     hello_feed.append(name)
+
+    response = hello_temp(name, save=True)
+    response.set_cookie('name', name)
 
     print("{} saved their name!".format(name))
 
@@ -64,4 +64,8 @@ def hello_erase(name):
         response = hello_temp()
 
     return response
+
+@app.route('/hello/feed/')
+def hello_feed_json():
+    return jsonify(data=hello_feed)
 
