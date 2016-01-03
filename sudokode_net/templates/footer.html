@@ -19,23 +19,25 @@
         function getLastCommit() {
           $.ajax({
             url: 'https://api.github.com/repos/sudokode/sudokode.net/commits',
-            dataType: 'json'
+            dataType: 'json',
+            cache: false
           })
           .done(function(json) {
             var lastCommit = json[0].sha.substr(0, 7);
             var commitMsg = json[0].commit.message;
             var commitDate = json[0].commit.author.date;
+            var commitUrl = json[0].html_url;
             $("#last_commit").text(
                 lastCommit
                 + ' ('
                 + commitMsg
                 + ')'
-            ).attr('title', 'Date: ' + commitDate);
+            ).attr('href', commitUrl)
+            .attr('title', 'Date: ' + commitDate);
           });
         }
 
         setInterval(getLastCommit, 10000);
-        //test commit info grabber
       });
     </script>
   </body>
