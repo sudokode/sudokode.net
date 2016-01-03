@@ -13,9 +13,11 @@
         {% endfor %}
         {% endif %}
       </ul>
+      <h5>Update in <span id="feed_timer"></span></h5>
     </div>
     <script type="text/javascript">
       $(document).ready(function() {
+        startFeedTimer();
         setInterval(function() {
           $.ajax({
             url: '/hello/feed/',
@@ -31,8 +33,22 @@
                   + value
                   + '</li>'
               );
-            });
+            })
+          })
+          .always(function() {
+            startFeedTimer();
           });
-        }, 9000);
+        }, 10000);
+
+        function startFeedTimer() {
+          var feed_timer = 9;
+          setInterval(function() {
+            $("#feed_timer").html(feed_timer);
+            if (feed_timer === 0)
+              feed_timer = 9;
+            else
+              feed_timer -= 1;
+          }, 1000);
+        }
       });
     </script>
