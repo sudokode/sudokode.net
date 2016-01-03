@@ -42,7 +42,7 @@ def hello_save(name):
 
     if len(hello_feed) == 10:
         hello_feed.pop()
-    hello_feed.append(name)
+    hello_feed.insert(0, name)
 
     response = hello_temp(name, save=True)
     response.set_cookie('name', name)
