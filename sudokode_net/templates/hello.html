@@ -27,7 +27,9 @@
       <button type="submit">Go!</button>
     </form>
     {% endif %}
+    {% if hello_feed %}
     {% with hello_feed=hello_feed %}
     {% include 'hello_feed.html' %}
     {% endwith %}
+    {% endif %}
 {% include 'footer.html' %}
