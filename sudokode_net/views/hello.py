@@ -3,7 +3,7 @@ from flask import request, make_response, url_for, redirect, abort, render_templ
 from sudokode_net import app, hello_feed
 
 def hello_temp(name=None, save=False, erase=False):
-    return make_response(temp('hello.html', title="Hello", name=name, save=save, erase=erase))
+    return make_response(temp('hello.html', title="Hello", name=name, save=save, erase=erase, hello_feed=hello_feed))
 
 @app.route('/hello/', methods=['POST', 'GET'])
 def hello_index():
@@ -42,6 +42,11 @@ def hello_save(name):
 
     response = hello_temp(name, save=True)
     response.set_cookie('name', name)
+
+    if len(hello_feed) == 10:
+        hello_feed.pop()
+    hello_feed.append(name)
+
     print("{} saved their name!".format(name))
 
     return response

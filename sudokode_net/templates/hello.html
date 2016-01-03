@@ -27,9 +27,7 @@
       <button type="submit">Go!</button>
     </form>
     {% endif %}
-    <h1>These people said hello too!</h1>
-    <div id="hello_feed">
-      <ul id="hello_list">
-      </ul>
-    </div>
+    {% with hello_feed=hello_feed %}
+    {% include 'hello_feed.html' %}
+    {% endwith %}
 {% include 'footer.html' %}

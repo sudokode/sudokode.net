@@ -1,0 +1,10 @@
+    <h2>These people said hello too!</h2>
+    <div id="hello_feed">
+      <ul id="hello_list">
+        {% if hello_feed %}
+        {% for hello in hello_feed %}
+        <li class="hello_item">{{ hello }}</li>
+        {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
