@@ -1,9 +1,15 @@
-    <h2>These people said hello too!</h2>
+    <style type="text/css">
+      .hello_item {
+        list-style: none;
+        padding-bottom: .2em;
+      }
+    </style>
     <div id="hello_feed">
+      <h3>These people said hello too!</h3>
       <ul id="hello_list">
         {% if hello_feed %}
         {% for hello in hello_feed %}
-        <li class="hello_item">{{ hello }}</li>
+        <li class="hello_item">-&gt; {{ hello }}</li>
         {% endfor %}
         {% endif %}
       </ul>
@@ -21,6 +27,7 @@
             $.each(json.data, function(index, value) {
               $("#hello_list").append(
                   '<li class="hello_item">'
+                  '-&gt; '
                   + value
                   + '</li>'
               );
