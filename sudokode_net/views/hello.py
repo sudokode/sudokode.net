@@ -30,6 +30,10 @@ def hello(name):
 
     print("Hello from {}!".format(name))
 
+    if len(hello_feed) == 10:
+        hello_feed.pop()
+    hello_feed.insert(0, name)
+
     if request.cookies.get('name'):
         return hello_temp(request.cookies.get('name'), save=True)
 
@@ -39,10 +43,6 @@ def hello(name):
 def hello_save(name):
     if not name:
         abort(403)
-
-    if len(hello_feed) == 10:
-        hello_feed.pop()
-    hello_feed.insert(0, name)
 
     response = hello_temp(name, save=True)
     response.set_cookie('name', name)
