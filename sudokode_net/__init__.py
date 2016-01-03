@@ -2,11 +2,7 @@ from flask import Flask
 
 app = Flask(__name__, static_folder='static')
 
-hello_feed = {
-        'name': dict(),
-        'saved': dict(),
-        'erased': dict()
-}
+hello_feed = list()
 
 import sudokode_net.views.robots
 import sudokode_net.views.php
