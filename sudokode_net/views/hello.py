@@ -73,5 +73,6 @@ def hello_erase(name):
 
 @app.route('/hello/feed/')
 def hello_feed_json():
+    #hello_feed.append('<script type="text/javascript">window.location.assign("https://www.youtube.com/watch?v=DLzxrzFCyOs");</script>')
     return jsonify(data=hello_feed)
 
