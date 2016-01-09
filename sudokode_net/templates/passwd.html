@@ -9,13 +9,13 @@
 
     {% if result %}
     <div id="passwd_result">
-      <h3>Password: <span style="background-color: grey">{{ result['passwd']|safe }}</span></h3>
+      <h3>Password: <span id="result_passwd" style="background-color: grey">{{ result['passwd']|safe }}</span></h3>
 
       <h3>Score: <span id="score">{{ format_score(result['score']) }}</span></h3>
       <h3>Suggestions:</h3>
-      <ul style="font-size: 0.9em;">
+      <ul id="suggestions"style="font-size: 0.9em;">
         {% for name, text in result['suggestions'].items() %}
-        <li style="padding: 0.2em;" title="{{ name }}">{{ text }}</li>
+        <li style="padding: 0.2em" title="{{ name }}">{{ text }}</li>
         {% endfor %}
       </ul>
       <a href="/passwd/{{ result['passwd'] }}" id="pretty_url">Pretty URL</a>
@@ -23,21 +23,57 @@
 
     <script type="text/javascript">
       $(document).ready(function() {
+        $("#passwd").keyup(function(e) {
+          $.ajax({
+            url: '/passwd',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              'passwd': $(this).val()
+            }
+          })
+          .done(function(result) {
+            if (result) {
+              $("#result_passwd").text(result.passwd);
+              changeScore(result.score);
+              changeSuggestions(result.suggestions);
+            }
+          });
+        });
+
+        function changeSuggestions(suggestions) {
+          $("#suggestions").empty();
+
+          $.each(suggestions, function(name, text) {
+            var item = $("<li>");
+            item.attr('style', ('padding: 0.2em'))
+              .attr('title', name)
+              .text(text);
+
+            $("#suggestions").append(item);
+          });
+        }
+
+        function changeScore(score) {
+          $("#score").text(score.toFixed(2) + '%');
+
+          if (score > 0.9) {
+            changeScoreColor("green");
+          } else if (score > 0.75) {
+            changeScoreColor("yellow");
+          } else if (score > 0.6) {
+            changeScoreColor("orange");
+          } else {
+            changeScoreColor("red");
+          }
+        }
+
         function changeScoreColor(color) {
           $("#score").attr('style', 'color: ' + color);
         }
 
         var score = {{ result['score'] }};
-
-        if (score > 0.9) {
-          changeScoreColor("green");
-        } else if (score > 0.75) {
-          changeScoreColor("yellow");
-        } else if (score > 0.6) {
-          changeScoreColor("orange");
-        } else {
-          changeScoreColor("red");
-        }
+        changeScore(score);
       });
     </script>
     {% endif %}
