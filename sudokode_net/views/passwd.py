@@ -8,19 +8,17 @@ def passwd_temp(test=None):
     return temp('passwd.html', title="Password Checker", test=test)
 
 @app.route('/passwd/')
-def passwd_index():
-    passwd = request.args.get('passwd', False)
-    if passwd:
-        return redirect('/passwd/' + passwd)
-    return passwd_temp()
+@app.route('/passwd/<path:passwd>', methods=['GET', 'POST'])
+def passwd_index(passwd=None):
+    get_passwd = request.args.get('passwd', False)
+    if get_passwd:
+        return redirect('/passwd/' + get_passwd)
 
-@app.route('/passwd/<path:passwd>')
-def passwd_check(passwd=None):
     if passwd:
         test = pwm.test(passwd)
         return passwd_temp(test)
-    else:
-        return redirect('/passwd')
+
+    return passwd_temp()
 
 @app.context_processor
 def utility_processor():
