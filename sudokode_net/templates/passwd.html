@@ -7,16 +7,17 @@
       <button type="submit">Check</button>
     </form>
 
-    {% if result %}
-    <div id="passwd_result">
-      <h3>Password: <span id="result_passwd" style="background-color: grey">{{ result['passwd']|safe }}</span></h3>
+    <div id="passwd_result" {% if not result %}hidden="true"{% endif %}>
+      <h3>Password: <span id="result_passwd" style="background-color: grey">{% if result %}{{ result['passwd']|safe }}{% endif %}</span></h3>
 
-      <h3>Score: <span id="score">{{ format_score(result['score']) }}</span></h3>
+      <h3>Score: <span id="score">{% if result %}{{ format_score(result['score']) }}{% endif %}</span></h3>
       <h3>Suggestions:</h3>
       <ul id="suggestions"style="font-size: 0.9em;">
+        {% if result %}
         {% for name, text in result['suggestions'].items() %}
         <li style="padding: 0.2em" title="{{ name }}">{{ text }}</li>
         {% endfor %}
+        {% endif %}
       </ul>
       <a href="/passwd/{{ result['passwd'] }}" id="pretty_url">Pretty URL</a>
     </div>
@@ -24,6 +25,11 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $("#passwd").keyup(function(e) {
+          if (!$(this).val()) {
+            $("#passwd_result").hide();
+            return;
+          }
+
           $.ajax({
             url: '/passwd',
             type: 'POST',
@@ -32,11 +38,17 @@
               'passwd': $(this).val()
             }
           })
+          .fail(function() {
+            $("passwd_result").hide();
+          })
           .done(function(result) {
             if (result) {
+              $("#passwd_result").show();
               $("#result_passwd").text(result.passwd);
               changeScore(result.score);
               changeSuggestions(result.suggestions);
+            } else {
+              $("passwd_result").hide();
             }
           });
         });
@@ -72,9 +84,10 @@
           $("#score").attr('style', 'color: ' + color);
         }
 
+        {% if result %}
         var score = {{ result['score'] }};
         changeScore(score);
+        {% endif %}
       });
     </script>
-    {% endif %}
 {% include 'footer.html' %}
