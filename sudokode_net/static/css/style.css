@@ -1,8 +1,7 @@
 body {
   background-color: black;
   color: white;
-  font-family: monospace;
-  font-size: 1.4em;
+  font-family: sans-serif;
 }
 
 a {
@@ -17,6 +16,15 @@ a:hover {
   box-shadow: 2px 2px 2px white;
   border-radius: 2px;
   padding: .1em;
+}
+
+code {
+  background-color: #606060;
+  color: lightgreen;
+  font-family: monospace;
+  font-size: 1.2em;
+  padding: .2em;
+  margin-left: 1em;
 }
 
 #footer {
