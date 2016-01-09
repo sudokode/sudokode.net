@@ -3,12 +3,11 @@
 
     <form id="passwd_form" action="/passwd" style="margin-bottom: 4em">
       <label for="passwd">Password:</label>
-      <input type="text" id="passwd" name="passwd" placeholder="Enter password" size="42" maxlength="100" />
+      <input type="text" id="passwd" name="passwd" placeholder="Enter password" size="42" maxlength="100" {% if result %}value="{{ result['passwd']|safe }}"{% endif %}/>
       <button type="submit">Check</button>
     </form>
 
     <div id="passwd_result" {% if not result %}hidden="true"{% endif %}>
-      <span id="result_passwd" style="background-color: grey">{{ result['passwd']|safe }}</span></h3>
       <h3>Score: <span id="score">{% if result %}{{ format_score(result['score']) }}{% endif %}</span></h3>
       <h3>Suggestions:</h3>
       <ul id="suggestions"style="font-size: 0.9em;">
@@ -29,8 +28,6 @@
             return;
           }
 
-          $("#result_passwd").hide();
-
           $.ajax({
             url: '/passwd',
             type: 'POST',
@@ -45,7 +42,6 @@
           .done(function(result) {
             if (result) {
               $("#passwd_result").show();
-              $("#result_passwd").text(result.passwd);
               changeScore(result.score);
               changeSuggestions(result.suggestions);
             } else {
