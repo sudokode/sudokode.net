@@ -10,8 +10,7 @@
     <br />
 
     <div id="passwd_result" {% if not result %}hidden="true"{% endif %}>
-      <h3>Password: <span id="result_passwd" style="background-color: grey">{% if result %}{{ result['passwd']|safe }}{% endif %}</span></h3>
-
+      <span id="result_passwd" style="background-color: grey">{{ result['passwd']|safe }}</span></h3>
       <h3>Score: <span id="score">{% if result %}{{ format_score(result['score']) }}{% endif %}</span></h3>
       <h3>Suggestions:</h3>
       <ul id="suggestions"style="font-size: 0.9em;">
@@ -21,7 +20,7 @@
         {% endfor %}
         {% endif %}
       </ul>
-      <a href="/passwd/{{ result['passwd'] }}" id="pretty_url">Pretty URL</a>
+      {% if results %}<a href="/passwd/{{ result['passwd'] }}" id="pretty_url">Pretty URL</a>{% endif %}
     </div>
 
     <script type="text/javascript">
@@ -31,6 +30,8 @@
             $("#passwd_result").hide();
             return;
           }
+
+          $("#result_passwd").hide();
 
           $.ajax({
             url: '/passwd',
