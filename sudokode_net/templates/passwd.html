@@ -9,9 +9,10 @@
 
     {% if test %}
     <div id="passwd_test">
+      <h3>Password: <span style="background-color: grey">{{ passwd }}</span></h3>
       <h3>Score: <span id="score">{{ format_score(test[0]) }}</span></h3>
-      <h4>Suggestions:</h4>
-      <ul style="font-size: 0.8em;">
+      <h3>Suggestions:</h3>
+      <ul style="font-size: 0.9em;">
         {% for suggestion in test[1] %}
         <li style="padding: 0.2em;">{{ test[1][suggestion] }}</li>
         {% endfor %}
