@@ -1,4 +1,4 @@
-from flask import request, redirect, render_template as temp
+from flask import request, redirect, jsonify, render_template as temp
 
 from sudokode_net import app
 
@@ -16,6 +16,15 @@ def passwd_index(passwd=None):
 
     if passwd:
         test = pwm.test(passwd)
+
+        if request.method == 'POST':
+            test = {
+                'passwd': passwd,
+                'score': test[0],
+                'suggestions': test[1]
+            }
+            return jsonify(test)
+
         return passwd_temp(passwd, test)
 
     return passwd_temp()
