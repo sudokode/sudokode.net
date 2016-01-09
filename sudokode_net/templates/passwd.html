@@ -69,6 +69,7 @@
         }
 
         function changeScore(score) {
+          score = score * 100;
           $("#score").text(score.toFixed(2) + '%');
 
           if (score > 0.9) {
