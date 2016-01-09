@@ -21,6 +21,7 @@
       <label for="passwd">Password:</label>
       <input type="text" id="passwd" name="passwd" pattern=".{8,100}" placeholder="Enter password" size="42" maxlength="100" {% if result %}value="{{ result['passwd']|safe }}"{% endif %}/>
       <button type="submit">Check</button>
+      <span id="passwd_short">Must be at least 8 chars</span>
     </form>
 
     <div id="passwd_result" {% if not result %}hidden="true"{% endif %}>
@@ -42,10 +43,13 @@
           $("#pretty_url").hide();
 
           var passwd = $("#passwd").val();
-          if (!passwd || passwd.length < 8) {
+          if (passwd.length < 8) {
             $("#passwd_result").hide();
+            $("#passwd_short").show();
             return;
           }
+
+          $("#passwd_short").hide();
 
           $.ajax({
             url: '/passwd',
@@ -105,6 +109,12 @@
         var score = {{ result['score'] }};
         changeScore(score);
         {% endif %}
+
+        if ($("#passwd").val().length < 8) {
+          $("#passwd_short").show();
+        } else {
+          $("#passwd_short").hide();
+        }
       });
     </script>
 {% include 'footer.html' %}
