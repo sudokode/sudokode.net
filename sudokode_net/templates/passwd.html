@@ -1,8 +1,21 @@
 {% include 'header.html' %}
     <h1>Password Checker</h1>
-    <form id="passwd_form" action="/passwd" method="POST">
+
+    <form id="passwd_form" action="/passwd/" method="GET">
       <label for="passwd">Password:</label>
       <input type="text" id="passwd" name="passwd" placeholder="Enter password" size="42" maxlength="100" />
       <button type="submit">Check</button>
     </form>
+
+    {% if test %}
+    <div id="passwd_test">
+      <h3>Score: {{ format_score(test[0]) }}</h3>
+      <h4>Suggestions:</h4>
+      <ul style="font-size: 0.8em;">
+        {% for suggestion in test[1] %}
+        <li style="padding: 0.2em;">{{ test[1][suggestion] }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
 {% include 'footer.html' %}
