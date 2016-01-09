@@ -7,6 +7,8 @@
       <button type="submit">Check</button>
     </form>
 
+    <br />
+
     <div id="passwd_result" {% if not result %}hidden="true"{% endif %}>
       <h3>Password: <span id="result_passwd" style="background-color: grey">{% if result %}{{ result['passwd']|safe }}{% endif %}</span></h3>
 
