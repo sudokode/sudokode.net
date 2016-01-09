@@ -1,31 +1,40 @@
-from flask import request, redirect, jsonify, render_template as temp
+from flask import request, jsonify, render_template as temp
 
 from sudokode_net import app
 
 import passwordmeter as pwm
 
-def passwd_temp(passwd=None, test=None):
-    return temp('passwd.html', title="Password Checker", passwd=passwd, test=test)
+def passwd_temp(result=None):
+    return temp('passwd.html', title="Password Checker", result=result)
 
-@app.route('/passwd/')
+def passwd_test(passwd):
+    test = pwm.test(passwd)
+    result = {
+        'passwd': passwd,
+        'score': test[0],
+        'suggestions': test[1]
+    }
+    return result
+
+@app.route('/passwd', methods=['GET', 'POST'])
 @app.route('/passwd/<path:passwd>', methods=['GET', 'POST'])
 def passwd_index(passwd=None):
-    get_passwd = request.args.get('passwd', False)
-    if get_passwd:
-        return redirect('/passwd/' + get_passwd)
+    _passwd = request.args.get('passwd', False)
+
+    if _passwd:
+        result = passwd_test(_passwd)
+        return passwd_temp(result)
 
     if passwd:
-        test = pwm.test(passwd)
+        result = passwd_test(passwd)
+        return passwd_temp(result)
 
-        if request.method == 'POST':
-            test = {
-                'passwd': passwd,
-                'score': test[0],
-                'suggestions': test[1]
-            }
-            return jsonify(test)
+    if request.method == 'POST':
+        passwd = request.form['passwd']
 
-        return passwd_temp(passwd, test)
+        if passwd:
+            result = passwd_test(passwd)
+            return jsonify(result)
 
     return passwd_temp()
 
@@ -34,3 +43,4 @@ def utility_processor():
     def format_score(score):
         return "{0:.02f}%".format(score * 100)
     return dict(format_score=format_score)
+
