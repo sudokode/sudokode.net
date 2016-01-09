@@ -1,22 +1,24 @@
 {% include 'header.html' %}
     <h1>Password Checker</h1>
 
-    <form id="passwd_form" action="/passwd/" method="GET">
+    <form id="passwd_form" action="/passwd" method="GET">
       <label for="passwd">Password:</label>
       <input type="text" id="passwd" name="passwd" placeholder="Enter password" size="42" maxlength="100" />
       <button type="submit">Check</button>
     </form>
 
-    {% if test %}
-    <div id="passwd_test">
-      <h3>Password: <span style="background-color: grey">{{ passwd }}</span></h3>
-      <h3>Score: <span id="score">{{ format_score(test[0]) }}</span></h3>
+    {% if result %}
+    <div id="passwd_result">
+      <h3>Password: <span style="background-color: grey">{{ result['passwd']|safe }}</span></h3>
+
+      <h3>Score: <span id="score">{{ format_score(result['score']) }}</span></h3>
       <h3>Suggestions:</h3>
       <ul style="font-size: 0.9em;">
-        {% for suggestion in test[1] %}
-        <li style="padding: 0.2em;">{{ test[1][suggestion] }}</li>
+        {% for name, text in result['suggestions'].items() %}
+        <li style="padding: 0.2em;" title="{{ name }}">{{ text }}</li>
         {% endfor %}
       </ul>
+      <a href="/passwd/{{ result['passwd'] }}" id="pretty_url">Pretty URL</a>
     </div>
 
     <script type="text/javascript">
@@ -25,7 +27,7 @@
           $("#score").attr('style', 'color: ' + color);
         }
 
-        var score = {{ test[0] }};
+        var score = {{ result['score'] }};
 
         if (score > 0.9) {
           changeScoreColor("green");
