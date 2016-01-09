@@ -67,11 +67,11 @@
           score = score * 100;
           $("#score").text(score.toFixed(2) + '%');
 
-          if (score > 0.9) {
+          if (score > 90) {
             changeScoreColor("green");
-          } else if (score > 0.75) {
+          } else if (score > 75) {
             changeScoreColor("yellow");
-          } else if (score > 0.6) {
+          } else if (score > 60) {
             changeScoreColor("orange");
           } else {
             changeScoreColor("red");
