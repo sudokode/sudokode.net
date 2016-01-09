@@ -26,7 +26,7 @@
     <div id="passwd_result" {% if not result %}hidden="true"{% endif %}>
       <h3>Score: <span id="score">{% if result %}{{ format_score(result['score']) }}{% endif %}</span></h3>
       <h3>Suggestions:</h3>
-      <ul id="suggestions"style="font-size: 0.9em;">
+      <ul id="suggestions">
         {% if result %}
         {% for name, text in result['suggestions'].items() %}
         <li style="padding: 0.2em" title="{{ name }}">{{ text }}</li>
