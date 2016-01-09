@@ -1,13 +1,11 @@
 {% include 'header.html' %}
     <h1>Password Checker</h1>
 
-    <form id="passwd_form" action="/passwd" method="GET">
+    <form id="passwd_form" action="/passwd" style="margin-bottom: 4em">
       <label for="passwd">Password:</label>
       <input type="text" id="passwd" name="passwd" placeholder="Enter password" size="42" maxlength="100" />
       <button type="submit">Check</button>
     </form>
-
-    <br />
 
     <div id="passwd_result" {% if not result %}hidden="true"{% endif %}>
       <span id="result_passwd" style="background-color: grey">{{ result['passwd']|safe }}</span></h3>
@@ -20,7 +18,7 @@
         {% endfor %}
         {% endif %}
       </ul>
-      {% if results %}<a href="/passwd/{{ result['passwd'] }}" id="pretty_url">Pretty URL</a>{% endif %}
+      {% if result %}<a href="/passwd/{{ result['passwd'] }}" id="pretty_url">Pretty URL</a>{% endif %}
     </div>
 
     <script type="text/javascript">
