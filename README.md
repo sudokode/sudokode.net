@@ -11,6 +11,8 @@ Requirements
 Or at least the versions of them I'm currently using:
 - python 3.5
 - flask 0.10.1
+- passwordmeter 0.1.8
+
 
 Goals
 -----
