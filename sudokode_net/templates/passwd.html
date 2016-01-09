@@ -1,0 +1,8 @@
+{% include 'header.html' %}
+    <h1>Password Checker</h1>
+    <form id="pass_form" action="/passwd" method="GET">
+      <label for="pass">Password:</label>
+      <input type="text" id="pass" name="pass" placeholder="Enter password" size="42" maxlength="100" />
+      <button type="submit">Check</button>
+    </form>
+{% include 'footer.html' %}

@@ -9,3 +9,4 @@ import sudokode_net.views.hack
 import sudokode_net.views.chan4
 import sudokode_net.views.index
 import sudokode_net.views.hello
+import sudokode_net.views.passwd
