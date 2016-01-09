@@ -19,7 +19,7 @@
 
     <form id="passwd_form" action="/passwd">
       <label for="passwd">Password:</label>
-      <input type="text" id="passwd" name="passwd" placeholder="Enter password" size="42" maxlength="100" {% if result %}value="{{ result['passwd']|safe }}"{% endif %}/>
+      <input type="text" id="passwd" name="passwd" pattern=".{8,100}" placeholder="Enter password" size="42" maxlength="100" {% if result %}value="{{ result['passwd']|safe }}"{% endif %}/>
       <button type="submit">Check</button>
     </form>
 
@@ -39,12 +39,13 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $("#passwd").keyup(function(e) {
-          if (!$(this).val()) {
+          $("#pretty_url").hide();
+
+          var passwd = $("#passwd").val();
+          if (!passwd || passwd.length < 8) {
             $("#passwd_result").hide();
             return;
           }
-
-          $("#pretty_url").hide();
 
           $.ajax({
             url: '/passwd',
