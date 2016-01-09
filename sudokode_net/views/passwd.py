@@ -4,8 +4,8 @@ from sudokode_net import app
 
 import passwordmeter as pwm
 
-def passwd_temp(test=None):
-    return temp('passwd.html', title="Password Checker", test=test)
+def passwd_temp(passwd=None, test=None):
+    return temp('passwd.html', title="Password Checker", passwd=passwd, test=test)
 
 @app.route('/passwd/')
 @app.route('/passwd/<path:passwd>', methods=['GET', 'POST'])
@@ -16,7 +16,7 @@ def passwd_index(passwd=None):
 
     if passwd:
         test = pwm.test(passwd)
-        return passwd_temp(test)
+        return passwd_temp(passwd, test)
 
     return passwd_temp()
 
