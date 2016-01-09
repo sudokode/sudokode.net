@@ -18,7 +18,7 @@ a:hover {
   padding: .1em;
 }
 
-code {
+.code {
   background-color: #606060;
   color: lightgreen;
   font-family: monospace;
