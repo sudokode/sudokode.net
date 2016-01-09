@@ -14,7 +14,7 @@
 
     <div id="passwd_desc">
       <p>Type to check the strength of your password. You can also call this service via curl:</p>
-      <code>curl -d 'passwd={% if result %}{{ result['passwd'] }}{% else %}P@ssw0rd{% endif %}' http://sudokode.net/passwd</code>
+      <code>curl -d 'passwd={% if result %}{{ result['passwd'] }}{% else %}P@ssw0rd{% endif %}' http://{{ request.host }}{{ url_for('passwd_index') }}</code>
     </div>
 
     <form id="passwd_form" action="/passwd">
